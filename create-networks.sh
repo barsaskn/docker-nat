@@ -26,27 +26,28 @@ check_network_exists() {
 if command -v docker &> /dev/null; then
     green "Docker found. Creating networks..."
 else
-    red "Docker not found. Please install."
+    red "Docker not found. Please install. Abort."
+    exit 1
 fi
 
 if check_network_exists "docker-nat-network1"; then
     blue "Network 'docker-nat-network1' exists. Skipping..."
 else
-    sudo docker network create --driver=bridge docker-nat-network1 --subnet=200.1.1.0/24 > /dev/null
+    sudo docker network create --driver=bridge docker-nat-network1 --subnet=200.1.1.0/24 --gateway 200.1.1.1> /dev/null
     green "Network 1 is created."
 fi
 
 if check_network_exists "docker-nat-network2"; then
     blue "Network 'docker-nat-network2' exists. Skipping..."
 else
-    sudo docker network create --driver=bridge docker-nat-network2 --subnet=172.0.1.0/24 > /dev/null
+    sudo docker network create --driver=bridge docker-nat-network2 --subnet=172.0.0.0/24 --gateway 172.0.0.1 > /dev/null
     green "Network 2 is created."
 fi
 
 if check_network_exists "docker-nat-network3"; then
     blue "Network 'docker-nat-network3' exists. Skipping..."
 else
-    sudo docker network create --driver=bridge docker-nat-network3 --subnet=10.40.30.0/24 > /dev/null
+    sudo docker network create --driver=bridge docker-nat-network3 --subnet=172.0.1.0/24 --gateway 172.0.1.1 > /dev/null
     green "Network 3 is created."
 fi
 
