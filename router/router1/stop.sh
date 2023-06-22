@@ -23,5 +23,6 @@ fi
 
 blue "$container_name is stopping..."
 sudo docker stop $container_name > /dev/null
+blue "$container_name is removing..."
 sudo docker remove $container_name > /dev/null
 green "$container_name stopped."

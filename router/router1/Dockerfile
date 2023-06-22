@@ -5,5 +5,4 @@ WORKDIR /app
 COPY configure-router.sh /app
 ENV IPTABLES=iptables-legacy
 RUN chmod +x /app/configure-router.sh
-CMD ["/app/configure-router.sh"]
-CMD ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]

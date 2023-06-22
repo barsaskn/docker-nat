@@ -39,7 +39,8 @@ if [[ -n "$image_id" ]]; then
     sudo docker run -d --cap-add=NET_ADMIN --network=$default_network --name $container_name $image_name > /dev/null
     green "$container_name container started."
     sudo docker network connect $network $container_name
-    green "$container_name container network configureation done."
+    sudo docker exec $container_name sh /app/configure-router.sh
+    green "$container_name container network configuration done." 
 else
     red "Error: $image_name docker image can not found. Abort."
 fi
