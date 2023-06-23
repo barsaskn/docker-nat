@@ -14,6 +14,13 @@ red() {
     echo -e "\033[0;31m$1\033[0m"
 }
 
+if command -v docker &> /dev/null; then
+    :  
+else
+    red "Docker not found. Please install. Abort."
+    exit 1
+fi
+
 if sudo docker container inspect $container_name >/dev/null 2>&1; then
     :
 else

@@ -4,7 +4,6 @@ ask_yes_no_question() {
     question=$1
     default_answer=$2
 
-    # Ayarlanan varsayılan yanıta göre "[Y/n]" veya "[y/N]" ifadesini oluştur
     if [[ $default_answer == "yes" ]]; then
         prompt="[Y/n]"
     elif [[ $default_answer == "no" ]]; then
@@ -13,19 +12,15 @@ ask_yes_no_question() {
         prompt="[y/n]"
     fi
 
-    # Soruyu kullanıcıya göster ve yanıtı al
     red "$question $prompt "
     read answer
 
-    # Yanıt boşsa, varsayılan yanıtı kullan
     if [[ -z $answer ]]; then
         answer=$default_answer
     fi
 
-    # Yanıtın büyük/küçük harf duyarlılığını kaldır
     answer=$(echo "$answer" | tr '[:upper:]' '[:lower:]')
 
-    # Yanıtın doğruluğunu kontrol et ve sonucu döndür
     if [[ $answer == "yes" || $answer == "y" ]]; then
         return 0  # true
     else
@@ -45,6 +40,12 @@ red() {
     echo -e "\033[0;31m$1\033[0m"
 }
 
+if command -v docker &> /dev/null; then
+    :  
+else
+    red "Docker not found. Please install. Abort."
+    exit 1
+fi
 
 if ask_yes_no_question "Do you want to delete all docker-nat-networks ?" "no"; then
     sudo docker network remove docker-nat-network1 docker-nat-network2 docker-nat-network3 > /dev/null
@@ -52,4 +53,3 @@ if ask_yes_no_question "Do you want to delete all docker-nat-networks ?" "no"; t
 else
     green "Abort."
 fi
-

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-image_name="docker-nat-router1"
+image_name="docker-nat-router"
 container_name="docker-nat-router1"
 default_network="docker-nat-network1"
-network="docker-nat-network3"
+nat_network="docker-nat-network3"
 
 green() {
     echo -e "\033[0;32m$1\033[0m"
@@ -21,7 +21,7 @@ red() {
 if command -v docker &> /dev/null; then
     :  
 else
-    red "Docker not found. Please install."
+    red "Docker not found. Please install. Abort."
     exit 1
 fi
 
@@ -38,8 +38,8 @@ if [[ -n "$image_id" ]]; then
     blue "Docker container starting: $container_name"
     sudo docker run -d --cap-add=NET_ADMIN --network=$default_network --name $container_name $image_name > /dev/null
     green "$container_name container started."
-    sudo docker network connect $network $container_name
-    sudo docker exec $container_name sh /app/configure-router.sh
+    sudo docker network connect $nat_network $container_name
+    sudo docker exec $container_name sh /app/configure-router1.sh
     green "$container_name container network configuration done." 
 else
     red "Error: $image_name docker image can not found. Abort."

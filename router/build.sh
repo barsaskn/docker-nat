@@ -1,5 +1,6 @@
 #!/bin/bash
-image_name="docker-nat-router1"
+
+image_name="docker-nat-router"
 
 green() {
     echo -e "\033[0;32m$1\033[0m"
@@ -17,7 +18,14 @@ red() {
 if command -v docker &> /dev/null; then
     :  
 else
-    red "Docker not found. Please install."
+    red "Docker not found. Please install. Abort."
+    exit 1
+fi
+
+if [[ "$(docker images -q $image_name 2> /dev/null)" == "" ]]; then
+    :
+else
+    blue "Docker image already exist."
     exit 1
 fi
 

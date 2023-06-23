@@ -1,7 +1,3 @@
-# Ubuntu yerine image oluştur router image'ı
-docker create -it --network=network1 --name container_name ubuntu 
-docker network connect network2 container_name
-docker start -ai container_name
-
-client defualt gateway should be set
-
+ip route replace default via <new_gateway>
+container should be started as CAP_ADMIN
+deletenetworks docker check
