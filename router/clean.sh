@@ -24,8 +24,7 @@ fi
 if sudo docker image inspect "$image_name" >/dev/null 2>&1; then
     blue "Docker image $image_name is removing..."
     blue "Related containers removing..."
-    ./router1/stop.sh
-    ./router2/stop.sh
+    ./stop.sh
     sudo docker image remove $image_name > /dev/null
     green "Docker image $image_name is removed."
 else
