@@ -1,6 +1,6 @@
 #!/bin/bash
 
-container_name="docker-nat-router1"
+container_name="docker-nat-router2"
 
 green() {
     echo -e "\033[0;32m$1\033[0m"
