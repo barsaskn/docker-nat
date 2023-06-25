@@ -45,20 +45,16 @@ cd network
 ./create-networks.sh
 ```
 
-3. Build images:
+3. Build all images:
 
 ```shell
-./router/build.sh
-./server/build.sh
-./client/build.sh
+./build-all.sh
 ```
 
-4. Run images:
+4. Run all images:
 
 ```shell
-./router/run.sh
-./server/run.sh
-./client/run.sh
+./run-all.sh
 ```
 
 5. You can connect clients or server terminals with command:
